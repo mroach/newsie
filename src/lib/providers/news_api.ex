@@ -93,7 +93,7 @@ defmodule Newsie.Providers.NewsApi do
       description: data["description"],
       url: data["url"],
       image_url: data["urlToImage"],
-      published_at: parse_timestamp(data["publishedAt"]),
+      date: parse_timestamp(data["publishedAt"]),
       content: data["content"]
     }
   end

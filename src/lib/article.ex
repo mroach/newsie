@@ -4,14 +4,16 @@ defmodule Newsie.Article do
   """
 
   @type t :: %__MODULE__{
-          author: String.t(),
+          author: String.t() | nil,
           title: String.t(),
-          description: String.t(),
+          description: String.t() | nil,
           url: String.t(),
-          image_url: String.t(),
-          published_at: DateTime.t(),
+          image_url: String.t() | nil,
+          date: DateTime.t() | nil,
           content: String.t(),
-          source_name: String.t()
+          structured_content: String.t() | nil,
+          source_name: String.t() | nil,
+          language: String.t() | nil
         }
 
   defstruct [
@@ -20,8 +22,10 @@ defmodule Newsie.Article do
     :description,
     :url,
     :image_url,
-    :published_at,
+    :date,
     :content,
-    :source_name
+    :structured_content,
+    :source_name,
+    :language
   ]
 end
