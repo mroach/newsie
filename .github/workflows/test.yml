@@ -19,6 +19,7 @@ jobs:
         elixir-otp:
           # quote version numbers so they don't get parsed as numbers
           # 1.10 would be converted to 1.1
+          # see: https://bobs-list.kobrakai.de
           - elixir: "1.10"
             otp: 22
           - elixir: "1.10"
