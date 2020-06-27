@@ -32,7 +32,7 @@ jobs:
           otp-version: ${{ matrix.elixir-otp.otp }}
           elixir-version: ${{ matrix.elixir-otp.elixir }}
 
-      - name: Restore PLTs
+      - name: PLT Cache
         uses: actions/cache@v2
         env:
           cache-name: dialyxir
