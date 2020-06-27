@@ -33,12 +33,12 @@ defmodule Newsie.ProviderConfig do
     app_config = provider_app_config(provider)
     env_config = provider_env_vars(provider)
 
-    Keyword.merge(app_config, env_config)
+    Keyword.merge(app_config, env_config) |> List.keysort(0)
   end
 
   @spec provider_app_config(atom()) :: keyword()
   def provider_app_config(provider) when is_atom(provider) do
-    Application.get_env(:newsie, provider, [])
+    Application.get_env(:newsie, provider, []) |> List.keysort(0)
   end
 
   @spec provider_env_vars(atom() | binary()) :: keyword()
@@ -57,6 +57,7 @@ defmodule Newsie.ProviderConfig do
 
       {key, value}
     end)
+    |> List.keysort(0)
   end
 
   defp normalize_provider_name(mod) when is_atom(mod) do
