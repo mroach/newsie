@@ -8,7 +8,7 @@ defmodule Newsie.Providers.NewsApiTest do
 
   setup do
     mock(fn
-      %{method: :get, url: "http://newsapi.org/v2/sources?language=en"} ->
+      %{method: :get, url: "http://newsapi.org/v2/sources", query: [language: :en]} ->
         File.read!("test/samples/news_api/sources_en.json")
         |> Jason.decode!()
         |> json()

@@ -57,9 +57,9 @@ defmodule Newsie.Providers.Newsriver do
   """
   @spec search_sources(String.t()) :: {:error, any} | {:ok, [map()]}
   def search_sources(text) do
-    query = URI.encode_query(query: text, owner: "any")
+    query = [query: text, owner: "any"]
 
-    case Tesla.get(client(), "/publisher/search?#{query}") do
+    case Tesla.get(client(), "/publisher/search", query: query) do
       {:ok, %{status: 200, body: body}} ->
         {:ok, body}
 
