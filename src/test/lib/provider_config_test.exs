@@ -42,15 +42,19 @@ defmodule Newsie.ProviderConfigTest do
 
     test "with config present" do
       assert [api_key: "bogus", timeout: 100] =
-               ProviderConfig.provider_app_config(Newsie.Providers.FakeProvider)
+               Newsie.Providers.FakeProvider
+               |> ProviderConfig.provider_app_config()
+               |> List.keysort(0)
     end
   end
 
   describe "get_provider_config/1" do
     # app config is set in config.exs for a FakeProvider
     test "env vars override app config" do
-      assert [timeout: 100, api_key: "newkey"] =
-               ProviderConfig.get_provider_config(Newsie.Providers.FakeProvider)
+      assert [api_key: "newkey", timeout: 100] =
+               Newsie.Providers.FakeProvider
+               |> ProviderConfig.get_provider_config()
+               |> List.keysort(0)
     end
   end
 end
