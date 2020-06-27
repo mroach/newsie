@@ -2,8 +2,8 @@ defmodule Newsie.Providers.CurrentsApiTest do
   use ExUnit.Case
   import Tesla.Mock
 
-  alias Newsie.Providers.CurrentsApi
   alias Newsie.Article
+  alias Newsie.Providers.CurrentsApi
 
   setup do
     mock(fn
