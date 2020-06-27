@@ -1,24 +1,22 @@
 defmodule Newsie.Providers.CurrentsApi do
-  @api_key_env_var "NEWSIE_CURRENTS_API_KEY"
-
   @moduledoc """
   Client for [Currents API]
 
-  Requires an API key to use.
+  ## Configuration
 
-  ### Configuration
+  Requires `:api_key` to use.
 
-  Setting the API key can be done with the environment variable `#{@api_key_env_var}`
-  or with application configuration:
-
-  ```elixir
-  config :newsie, Newsie.Providers.CurrentsApi, api_key: "my_api_key"
-  ```
+  See `Newsie.ProviderConfig` for documentation on how to configure providers.
 
   [Currents API]: https://www.currentsapi.services
   """
 
   alias Newsie.Article
+
+  @spec config :: keyword
+  def config do
+    Newsie.ProviderConfig.get_provider_config(__MODULE__)
+  end
 
   @doc """
   Search for news articles
@@ -71,10 +69,8 @@ defmodule Newsie.Providers.CurrentsApi do
     get_articles("/latest-news", language: language)
   end
 
-  defp get_articles(path, query_params) do
-    query = URI.encode_query(query_params)
-
-    case Tesla.get(client(), "#{path}?#{query}") do
+  defp get_articles(path, query) do
+    case Tesla.get(client(), path, query: query) do
       {:ok, %{status: 200, body: body}} ->
         articles = Enum.map(body["news"], &parse_article/1)
 
@@ -118,33 +114,18 @@ defmodule Newsie.Providers.CurrentsApi do
   end
 
   defp client do
+    headers = [
+      {"authorization", Keyword.fetch!(config(), :api_key)},
+      {"user-agent", Newsie.user_agent()}
+    ]
+
     middleware = [
       Tesla.Middleware.Logger,
       {Tesla.Middleware.BaseUrl, "https://api.currentsapi.services/v1"},
       Tesla.Middleware.JSON,
-      {Tesla.Middleware.Timeout, [timeout: api_timeout()]},
-      {Tesla.Middleware.Headers, [{"authorization", api_key()}]}
+      {Tesla.Middleware.Headers, headers}
     ]
 
     Tesla.client(middleware)
-  end
-
-  defp module_config do
-    Application.get_env(:newsie, __MODULE__) || []
-  end
-
-  defp api_key_from_env do
-    System.get_env("#{@api_key_env_var}")
-  end
-
-  defp api_key do
-    case Keyword.fetch(module_config(), :api_key) do
-      {:ok, key} -> key
-      :error -> api_key_from_env()
-    end
-  end
-
-  defp api_timeout do
-    Keyword.get(module_config(), :timeout, 2_000)
   end
 end

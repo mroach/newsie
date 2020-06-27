@@ -12,6 +12,7 @@ if Mix.env() == :test do
   config :tesla, Tesla.Middleware.Logger, debug: false
 
   # satisfy requirement for api keys to be set
+  config :newsie, Newsie.Providers.CurrentsApi, api_key: "bogus"
   config :newsie, Newsie.Providers.NewsApi, api_key: "bogus"
   config :newsie, Newsie.Providers.Newsriver, api_key: "bogus"
 
