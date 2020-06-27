@@ -32,6 +32,8 @@ jobs:
           otp-version: ${{ matrix.elixir-otp.otp }}
           elixir-version: ${{ matrix.elixir-otp.elixir }}
 
+      - run: echo "fuck you" ${{ github.workspace }}
+
       - name: dep cache
         uses: actions/cache@v2
         with:
