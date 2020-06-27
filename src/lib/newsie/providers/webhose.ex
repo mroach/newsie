@@ -57,7 +57,7 @@ defmodule Newsie.Providers.Webhose do
       image_url: thread["main_image"],
       date: parse_timestamp(data["published"]),
       content: data["text"],
-      language: data["language"]
+      language: Newsie.Languages.name_to_code(data["language"])
     }
   end
 

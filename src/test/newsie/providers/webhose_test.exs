@@ -29,7 +29,7 @@ defmodule Newsie.Providers.WebhoseTest do
                content: "The Federal Aviation Administration (FAA) " <> _,
                url: "https://finance.yahoo.com/news/faa-finalizes-inspection-directive-boeing-142315842.html",
                image_url: "https://s.yimg.com/uu/api/res/" <> _,
-               language: "english"
+               language: :en
              } = Enum.at(articles, 0)
     end
   end
