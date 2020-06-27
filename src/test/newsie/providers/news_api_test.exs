@@ -2,7 +2,7 @@ defmodule Newsie.Providers.NewsApiTest do
   use ExUnit.Case
   import Tesla.Mock
 
-  alias Newsie.Providers.NewsApi
+  alias Newsie.{Article, Providers.NewsApi}
 
   doctest NewsApi
 

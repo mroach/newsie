@@ -76,12 +76,12 @@ defmodule Newsie.Providers.Newsriver do
       source_name: Kernel.get_in(data, ["website", "name"]),
       author: nil,
       title: data["title"],
-      description: data["description"],
       url: data["url"],
       image_url: find_image(data["elements"]),
       date: parse_timestamp(data["publishDate"] || data["discoverDate"]),
       content: data["text"],
-      structured_content: data["structuredText"]
+      structured_content: data["structuredText"],
+      language: Newsie.Languages.parse_code(data["language"])
     }
   end
 

@@ -33,7 +33,8 @@ defmodule Newsie.Providers.CurrentsApiTest do
                title: "US House speaker Nancy Pelosi backs congressional legislation on Hong Kong",
                url: "https://www.scmp.com/news/china/politics/article/3027994/us-house-speaker-nancy-pelosi-backs-congressional-legislation",
                author: "Robert Delaney",
-               image_url: nil
+               image_url: nil,
+               language: :en
              } = Enum.at(articles, 0)
 
       assert %Article{

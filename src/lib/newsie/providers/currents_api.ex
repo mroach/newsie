@@ -135,7 +135,8 @@ defmodule Newsie.Providers.CurrentsApi do
       description: data["description"],
       url: data["url"],
       image_url: find_image(data["image"]),
-      date: parse_timestamp(data["published"])
+      date: parse_timestamp(data["published"]),
+      language: Newsie.Languages.parse_code(data["language"])
     }
   end
 
