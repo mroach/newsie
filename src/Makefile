@@ -9,6 +9,7 @@ test:
 check:
 	mix format --check-formatted
 	mix credo --strict
+	mix dialyzer --quiet
 
 .PHONY: docker/build
 docker/build:
