@@ -34,7 +34,7 @@ defmodule Newsie.Languages do
   @doc """
   Get a `Map` of ISO-639 2-letter language codes and their English name.
   """
-  @spec iso_639() :: Map.t()
+  @spec iso_639() :: map()
   def iso_639, do: @iso_639_codes
 
   @doc """
