@@ -17,3 +17,7 @@ docker/build:
 .PHONY: docker/test
 docker/test: docker/build
 	docker run --rm -v $(PWD):/opt/code $(DOCKER_TAG) mix test
+
+.PHONY: docs
+docs:
+	mix docs
