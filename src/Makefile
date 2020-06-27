@@ -21,3 +21,6 @@ docker/test: docker/build
 .PHONY: docs
 docs:
 	mix docs
+
+data/iso-639-3.tab:
+	curl -o $(@D)/$(@F) https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3.tab
