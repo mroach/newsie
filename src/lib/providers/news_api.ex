@@ -1,24 +1,22 @@
 defmodule Newsie.Providers.NewsApi do
-  @api_key_env_var "NEWSIE_NEWS_API_KEY"
-
   @moduledoc """
   Client for [News API]
 
-  Requires an API key to use.
+  ## Configuration
 
-  ### Configuration
+  Requires `:api_key` to use.
 
-  Setting the API key can be done with the environment variable `#{@api_key_env_var}`
-  or with application configuration:
-
-  ```elixir
-  config :newsie, Newsie.Providers.NewsApi, api_key: "my_api_key"
-  ```
+  See `Newsie.ProviderConfig` for documentation on how to configure providers.
 
   [News API]: https://newsapi.org/
   """
 
   alias Newsie.Article
+
+  @spec config :: keyword
+  def config do
+    Newsie.ProviderConfig.get_provider_config(__MODULE__)
+  end
 
   @spec top_headlines(any) :: {:error, any()} | {:ok, [Article.t()]}
   def top_headlines(filters) do
@@ -109,7 +107,7 @@ defmodule Newsie.Providers.NewsApi do
 
   defp client do
     headers = [
-      {"x-api-key", api_key()},
+      {"x-api-key", Keyword.fetch!(config(), :api_key)},
       {"user-agent", Newsie.user_agent()}
     ]
 
@@ -120,20 +118,5 @@ defmodule Newsie.Providers.NewsApi do
     ]
 
     Tesla.client(middleware)
-  end
-
-  defp module_config do
-    Application.get_env(:newsie, __MODULE__) || []
-  end
-
-  defp api_key_from_env do
-    System.get_env("#{@api_key_env_var}")
-  end
-
-  defp api_key do
-    case Keyword.fetch(module_config(), :api_key) do
-      {:ok, key} -> key
-      :error -> api_key_from_env()
-    end
   end
 end
