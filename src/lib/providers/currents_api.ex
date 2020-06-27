@@ -144,7 +144,7 @@ defmodule Newsie.Providers.CurrentsApi do
     end
   end
 
-  defp api_timeout() do
+  defp api_timeout do
     Keyword.get(module_config(), :timeout, 2_000)
   end
 end
