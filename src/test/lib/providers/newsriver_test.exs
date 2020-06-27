@@ -20,7 +20,6 @@ defmodule Newsie.Providers.NewsriverTest do
     :ok
   end
 
-  @tag capture_log: true
   test "fetching CNN articles" do
     assert {:ok, articles} = Newsriver.search("website.domainName:cnn.com")
 
