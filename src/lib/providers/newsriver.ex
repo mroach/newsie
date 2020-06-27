@@ -106,11 +106,16 @@ defmodule Newsie.Providers.Newsriver do
   end
 
   defp client do
+    headers = [
+      {"authorization", api_key()},
+      {"user-agent", Newsie.user_agent()}
+    ]
+
     middleware = [
       Tesla.Middleware.Logger,
       {Tesla.Middleware.BaseUrl, "https://api.newsriver.io/v2/"},
       Tesla.Middleware.JSON,
-      {Tesla.Middleware.Headers, [{"authorization", api_key()}]}
+      {Tesla.Middleware.Headers, headers}
     ]
 
     Tesla.client(middleware)

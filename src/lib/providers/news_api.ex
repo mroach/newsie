@@ -108,10 +108,15 @@ defmodule Newsie.Providers.NewsApi do
   end
 
   defp client do
+    headers = [
+      {"x-api-key", api_key()},
+      {"user-agent", Newsie.user_agent()}
+    ]
+
     middleware = [
       {Tesla.Middleware.BaseUrl, "http://newsapi.org/v2/"},
       Tesla.Middleware.JSON,
-      {Tesla.Middleware.Headers, [{"x-api-key", api_key()}]}
+      {Tesla.Middleware.Headers, headers}
     ]
 
     Tesla.client(middleware)
