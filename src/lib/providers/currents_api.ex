@@ -23,12 +23,22 @@ defmodule Newsie.Providers.CurrentsApi do
 
   ### Search parameters
 
+  * `type` (see below)
+  * `category` (see below)
   * `language` (ISO-639-2 code)
   * `keywords`
   * `country` (ISO-3166 code)
-  * `category` (see below)
   * `start_date (ISO-8601 timestamp)
   * `end_date` (ISO-8601 timestamp)
+
+  #### Type
+
+  The Currents API provides differnt kinds of content; not just new.
+  The `type` filter controls the kind of content you want.
+
+  * 1 = news (default)
+  * 2 = article
+  * 3 = discussion content
 
   #### Category
 
@@ -58,6 +68,10 @@ defmodule Newsie.Providers.CurrentsApi do
   """
   @spec search(keyword()) :: {:error, any()} | {:ok, [Article.t()]}
   def search(filters) do
+    # type: 1 = news, 2 = article, 3 = discussion content
+    default_filters = [type: 1]
+    filters = Keyword.merge(default_filters, filters)
+
     get_articles("/search", filters)
   end
 
@@ -69,19 +83,49 @@ defmodule Newsie.Providers.CurrentsApi do
     get_articles("/latest-news", language: language)
   end
 
+  @doc """
+  Get a list of supported languages.
+  """
+  @spec get_supported_languages :: {:error, any()} | {:ok, [String.t()]}
+  def get_supported_languages do
+    client()
+    |> Tesla.get("available/languages")
+    |> handle_success(fn resp -> Map.values(resp.body["languages"]) end)
+  end
+
+  @doc """
+  Get a list of supported regions.
+
+  These are mostly ISO country codes, but some are regions like 'ASIA' and 'INT'
+  """
+  @spec get_supported_regions :: {:error, any()} | {:ok, %{String.t() => String.t()}}
+  def get_supported_regions do
+    client()
+    |> Tesla.get("available/regions")
+    |> handle_success(fn resp ->
+      Map.new(resp.body["regions"], fn {k, v} -> {v, k} end)
+    end)
+  end
+
+  @doc "Get a list of supported categories"
+  @spec get_supported_categories :: {:error, any} | {:ok, [String.t()]}
+  def get_supported_categories do
+    client()
+    |> Tesla.get("available/categories")
+    |> handle_success(fn resp -> resp.body["categories"] end)
+  end
+
+  defp handle_success({:ok, %{status: 200} = resp}, fun) when is_function(fun, 1) do
+    {:ok, fun.(resp)}
+  end
+
+  defp handle_success({:ok, response}, _), do: {:error, response}
+  defp handle_success({:error, response}, _), do: {:error, response}
+
   defp get_articles(path, query) do
-    case Tesla.get(client(), path, query: query) do
-      {:ok, %{status: 200, body: body}} ->
-        articles = Enum.map(body["news"], &parse_article/1)
-
-        {:ok, articles}
-
-      {:ok, resp} ->
-        {:error, resp}
-
-      {:error, other} ->
-        {:error, other}
-    end
+    client()
+    |> Tesla.get(path, query: query)
+    |> handle_success(fn resp -> Enum.map(resp.body["news"], &parse_article/1) end)
   end
 
   defp parse_article(data) do
