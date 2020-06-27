@@ -49,6 +49,4 @@ jobs:
 
       - run: mix credo --strict
 
-      - run: pwd; ls ./*
-
       - run: mix dialyzer
