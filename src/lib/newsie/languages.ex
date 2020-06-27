@@ -53,7 +53,7 @@ defmodule Newsie.Languages do
       iex> Newsie.Languages.code_to_name(:xx)
       nil
   """
-  @spec code_to_name(atom() | binary()) :: String.t() | nil
+  @spec code_to_name(code2() | binary()) :: String.t() | nil
   def code_to_name(code) when is_binary(code) do
     code
     |> parse_code()
@@ -77,7 +77,7 @@ defmodule Newsie.Languages do
       iex> Newsie.Languages.name_to_code("Klingon")
       nil
   """
-  @spec name_to_code(binary) :: atom() | nil
+  @spec name_to_code(binary()) :: code2() | nil
   def name_to_code(name) do
     Map.get(@name_to_code, String.downcase(name))
   end
@@ -97,6 +97,7 @@ defmodule Newsie.Languages do
       iex> Newsie.Languages.parse_code("jp")
       nil
   """
+  @spec parse_code(code2() | binary()) :: code2() | nil
   def parse_code(code) when is_atom(code) do
     if Map.has_key?(@iso_639_codes, code), do: code, else: nil
   end
