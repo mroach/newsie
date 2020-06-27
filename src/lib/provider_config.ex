@@ -13,7 +13,7 @@ defmodule Newsie.ProviderConfig do
   Given the application config:
 
   ```elixir
-  config :newsie, Newsie.Provider.MyNewsProvider, api_key: "asdqwe123"
+  config :newsie, Newsie.Providers.MyNewsProvider, api_key: "asdqwe123"
   ```
 
   If you wanted to override that with an environment variable, it would be:
@@ -36,11 +36,37 @@ defmodule Newsie.ProviderConfig do
     Keyword.merge(app_config, env_config) |> List.keysort(0)
   end
 
+  @doc """
+  Get configuration from application config.
+
+  Given the app config:
+
+  ```elixir
+  config :newsie, Newsie.Providers.DocProvider, api_key: "mykey"
+  ```
+
+  Fetching the config for the provider:
+
+  ```
+  Newsie.ProviderConfig.provider_app_config(Newsie.Providers.DocProvider)
+  [api_key: "mykey"]
+  ```
+  """
   @spec provider_app_config(atom()) :: keyword()
   def provider_app_config(provider) when is_atom(provider) do
     Application.get_env(:newsie, provider, []) |> List.keysort(0)
   end
 
+  @doc """
+  Get configuration from ENV vars for the given provider.
+
+  Prefixes are stripped and only the parameter names are returned as values.
+
+  ### Example
+      iex> System.put_env("NEWSIE_DOC_PROVIDER_API_KEY", "mykey")
+      ...> Newsie.ProviderConfig.provider_env_vars("DocProvider")
+      [api_key: "mykey"]
+  """
   @spec provider_env_vars(atom() | binary()) :: keyword()
   def provider_env_vars(provider_name) do
     prefix = @env_prefix <> normalize_provider_name(provider_name)
