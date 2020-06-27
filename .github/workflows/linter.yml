@@ -38,9 +38,9 @@ jobs:
           cache-name: dialyxir
         with:
           path: priv/plts
-          key: ${{ runner.os }}-${{ env.cache-name }}-erlang-${{ matrix.elixir-otp.otp }}_elixir-${{ matrix.elixir-otp.elixir }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+          key: ${{ runner.os }}-${{ env.cache-name }}-erlang-${{ matrix.elixir-otp.otp }}_elixir-${{ matrix.elixir-otp.elixir }}-${{ hashFiles(format('{0}{1}', github.workspace, '/src/mix.lock')) }}
           restore-keys: |
-            ${{ runner.os }}-${{ env.cache-name }}-erlang-${{ matrix.elixir-otp.otp }}_elixir-${{ matrix.elixir-otp.elixir }}
+            ${{ runner.os }}-${{ env.cache-name }}-erlang-${{ matrix.elixir-otp.otp }}_elixir-${{ matrix.elixir-otp.elixir }}-
             ${{ runner.os }}-${{ env.cache-name }}-
 
       - run: mix deps.get
