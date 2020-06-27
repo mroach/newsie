@@ -68,7 +68,7 @@ defmodule Newsie.Providers.CurrentsApi do
   """
   @spec latest_news(String.t()) :: {:error, any()} | {:ok, [Article.t()]}
   def latest_news(language \\ "en") do
-    get_articles("/latest-news", [language: language])
+    get_articles("/latest-news", language: language)
   end
 
   defp get_articles(path, query_params) do
