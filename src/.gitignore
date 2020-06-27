@@ -25,6 +25,5 @@ newsie-*.tar
 # Elixir Language Server cache
 /.elixir_ls
 
-# Dialyzer PLT
-/priv/plts/*.plt
-/priv/plts/*.plt.hash
+# Dialyzer PLTs
+/priv/plts/
