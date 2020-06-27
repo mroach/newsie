@@ -1,0 +1,72 @@
+{
+  "status": "ok",
+  "news": [
+      {
+          "id": "e1749cf0-8a49-4729-88b2-e5b4d03464ce",
+          "title": "US House speaker Nancy Pelosi backs congressional legislation on Hong Kong",
+          "description": "US House speaker Nancy Pelosi on Wednesday threw her support behind legislation meant to back Hong Kong's anti-government protesters.Speaking at a news conference featuring Hong Kong activists Joshua Wong Chi-fung and Denise Ho, who testified before the Congressional-Executive Commission on China (C...",
+          "url": "https://www.scmp.com/news/china/politics/article/3027994/us-house-speaker-nancy-pelosi-backs-congressional-legislation",
+          "author": "Robert Delaney",
+          "image": "None",
+          "language": "en",
+          "category": [
+              "world"
+          ],
+          "published": "2019-09-18 21:08:58 +0000"
+      },
+      {
+          "id": "76b7101b-8170-4314-8036-477b97776d27",
+          "title": "Congress moving quickly on bill to support Hong Kong protesters",
+          "description": "(Sept 18): Momentum is building for quick action in Congress to pressure China to back off any crackdown on pro-democracy protesters by threatening Hong Kong's special trading status with the U.S.\nLegislation is moving through the House and Senate that would require annual assessments of whether the...",
+          "url": "http://www.theedgemarkets.com/article/congress-moving-quickly-bill-support-hong-kong-protesters",
+          "author": "shireen.koshy",
+          "image": "None",
+          "language": "en",
+          "category": [
+              "politics",
+              "business"
+          ],
+          "published": "2019-09-18 20:35:04 +0000"
+      },
+      {
+          "id": "3ed38e9e-f825-48ca-aa79-2cc7201ff241",
+          "title": "Hong Kong hotel workers go on unpaid leave as tourists shun city",
+          "description": "As the protests in Hong Kong drive away visitors, the city\u2019s hotel workers are in the firing line.",
+          "url": "https://sg.finance.yahoo.com/news/hong-kong-hotel-workers-go-on-unpaid-leave-as-tourists-shun-city-073722827.html",
+          "author": "Bloomberg",
+          "image": "https://s.yimg.com/uu/api/res/1.2/y5C.6QPFXkZKJyM5u8dT2g--~B/aD0zMzQwO3c9NTAxMDtzbT0xO2FwcGlkPXl0YWNoeW9u/https://media-mbst-pub-ue1.s3.amazonaws.com/creatr-images/2019-09/c5ccb950-d9e4-11e9-afff-6ee6ea2f5ee4",
+          "language": "en",
+          "category": [
+              "regional"
+          ],
+          "published": "2019-09-18 19:53:25 +0000"
+      },
+      {
+          "id": "70af452f-40a3-4131-bbd2-201e4cc1d727",
+          "title": "Budweiser maker revives Hong Kong IPO plan with reduced ambitions",
+          "description": "The maker of Budweiser and Stella Artois beers has revived plans to list its Asia unit in Hong Kong, saying it wants to raise almost $5 billion in what would be the world's second-biggest initial public offering this year.  The decision by Belgium-listed Anheuser-Busch InBev to sell the stake will",
+          "url": "https://sg.news.yahoo.com/budweiser-maker-revives-hong-kong-ipo-plan-reduced-041515087--finance.html",
+          "author": "AFP News",
+          "image": "https://s.yimg.com/uu/api/res/1.2/.C5lyuXzK7xnGFqsfNz1lA--~B/aD01MTI7dz03Njg7c209MTthcHBpZD15dGFjaHlvbg--/http://media.zenfs.com/en_sg/News/AFP/e85b3dfc8246de73dfb949cdd2e96dc94a80eee7.jpg",
+          "language": "en",
+          "category": [
+              "regional"
+          ],
+          "published": "2019-09-18 19:53:25 +0000"
+      },
+      {
+          "id": "61e150e0-3dfa-4d4d-98a0-4381f5822267",
+          "title": "Places in Singapore that'll make you believe you're in Hong Kong's Tsim Sha Tsui, Victoria Peak & Mongkok",
+          "description": "It seems like the Hong Kong protests aren't\u00a0dying down anytime soon,\u00a0and you may be\u00a0feeling a little glum that your trip to the land of dim sum\u00a0has to be postponed until further notice.\nWe've put together a light-hearted article that might just make up for the dampened mood, and you can recreate the...",
+          "url": "http://www.asiaone.com/lifestyle/places-singapore-thatll-make-you-believe-youre-hong-kongs-tsim-sha-tsui-victoria-peak",
+          "author": "Melissa Goh",
+          "image": "None",
+          "language": "en",
+          "category": [
+              "travel",
+              "lifestyle"
+          ],
+          "published": "2019-09-18 19:28:36 +0000"
+      }
+  ]
+}

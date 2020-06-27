@@ -1,4 +1,4 @@
-name: Tests
+name: Linter
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  linter:
     runs-on: ubuntu-latest
 
     defaults:
@@ -17,19 +17,11 @@ jobs:
     strategy:
       matrix:
         elixir-otp:
-          # quote version numbers so they don't get parsed as numbers
-          # 1.10 would be converted to 1.1
-          # see: https://bobs-list.kobrakai.de
+          # only test the linting on the oldest and newest supported versions
           - elixir: "1.10"
             otp: 22
-          - elixir: "1.10"
-            otp: 21
-          - elixir: "1.9"
-            otp: 20
           - elixir: "1.8"
             otp: 20
-          - elixir: "1.7"
-            otp: 19
 
     steps:
       - uses: actions/checkout@v2
@@ -42,4 +34,6 @@ jobs:
 
       - run: mix deps.get
 
-      - run: mix test
+      - run: mix format --check-formatted
+
+      - run: mix credo --strict

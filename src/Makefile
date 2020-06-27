@@ -1,3 +1,6 @@
+ELIXIR_VER := 1.10
+DOCKER_TAG := newsie_elixir_$(ELIXIR_VER)
+
 .PHONY: test
 test:
 	mix test
@@ -6,3 +9,15 @@ test:
 check:
 	mix format --check-formatted
 	mix credo --strict
+
+.PHONY: docker/build
+docker/build:
+	docker build --tag $(DOCKER_TAG) --build-arg ELIXIR_VER=$(ELIXIR_VER) .
+
+.PHONY: docker/test
+docker/test: docker/build
+	docker run --rm -v $(PWD):/opt/code $(DOCKER_TAG) mix test
+
+.PHONY: docs
+docs:
+	mix docs

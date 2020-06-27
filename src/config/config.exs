@@ -10,4 +10,12 @@ if Mix.env() == :test do
   # Debug logging with Tesla is broken and tries to log the JSON structure
   # and this breaks in older Elixir versions. Modern versions warn.
   config :tesla, Tesla.Middleware.Logger, debug: false
+
+  # satisfy requirement for api keys to be set
+  config :newsie, Newsie.Providers.CurrentsApi, api_key: "bogus"
+  config :newsie, Newsie.Providers.NewsApi, api_key: "bogus"
+  config :newsie, Newsie.Providers.Newsriver, api_key: "bogus"
+
+  # generate fake config for testing purposes
+  config :newsie, Newsie.Providers.FakeProvider, api_key: "bogus", timeout: 100
 end

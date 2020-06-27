@@ -5,9 +5,14 @@ defmodule Newsie.MixProject do
     [
       app: :newsie,
       version: "0.1.0",
-      elixir: "~> 1.8",
+      elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      name: "Newsie",
+      homepage_url: "https://github.com/mroach/newsie",
+      docs: [
+        main: "Newsie"
+      ]
     ]
   end
 
@@ -24,7 +29,8 @@ defmodule Newsie.MixProject do
       {:jason, "~> 1.0"},
 
       # env-restricted deps
-      {:credo, "~> 1.4", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.22", only: :dev, runtime: false}
     ]
   end
 end
