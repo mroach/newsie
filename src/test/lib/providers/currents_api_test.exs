@@ -5,12 +5,19 @@ defmodule Newsie.Providers.CurrentsApiTest do
   alias Newsie.Article
   alias Newsie.Providers.CurrentsApi
 
+  defp json_from_sample(file_name) do
+    File.read!("test/samples/currents_api/#{file_name}.json")
+    |> Jason.decode!()
+    |> Tesla.Mock.json()
+  end
+
   setup do
     mock(fn
       %{method: :get, url: "https://api.currentsapi.services/v1/latest-news"} ->
-        File.read!("test/samples/currents_api/latest_news.json")
-        |> Jason.decode!()
-        |> json()
+        json_from_sample("latest_news")
+
+      %{method: :get, url: "https://api.currentsapi.services/v1/available/" <> what} ->
+        json_from_sample(what)
     end)
 
     :ok
@@ -18,7 +25,6 @@ defmodule Newsie.Providers.CurrentsApiTest do
 
   doctest CurrentsApi
 
-  @tag capture_log: true
   describe "latest_news/1" do
     test "news in english" do
       assert {:ok, articles} = CurrentsApi.latest_news("en")
@@ -37,5 +43,20 @@ defmodule Newsie.Providers.CurrentsApiTest do
                image_url: "https://s.yimg.com/" <> _
              } = Enum.at(articles, 2)
     end
+  end
+
+  test "get_supported_categories/0" do
+    assert {:ok, cats} = CurrentsApi.get_supported_categories()
+    assert Enum.member?(cats, "entertainment")
+  end
+
+  test "get_supported_languages" do
+    assert {:ok, langs} = CurrentsApi.get_supported_languages()
+    assert Enum.member?(langs, "en")
+  end
+
+  test "get_supported_regions/0" do
+    assert {:ok, regions} = CurrentsApi.get_supported_regions()
+    assert Map.has_key?(regions, "INT")
   end
 end
