@@ -49,4 +49,4 @@ jobs:
 
       - run: mix credo --strict
 
-      - run: mix dialyxir
+      - run: mix dialyzer
