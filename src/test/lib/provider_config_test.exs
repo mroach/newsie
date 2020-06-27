@@ -13,9 +13,9 @@ defmodule Newsie.ProviderConfigTest do
 
     System.put_env(env_vars)
 
-    on_exit fn ->
+    on_exit(fn ->
       for {k, _} <- env_vars, do: System.delete_env(k)
-    end
+    end)
 
     {:ok, %{env_vars: env_vars}}
   end
@@ -26,7 +26,8 @@ defmodule Newsie.ProviderConfigTest do
     end
 
     test "finds config for the provider" do
-      assert [api_key: "asdqwe123", timeout: "1000"] == ProviderConfig.provider_env_vars("MyProvider")
+      assert [api_key: "asdqwe123", timeout: "1000"] ==
+               ProviderConfig.provider_env_vars("MyProvider")
     end
 
     test "finds config for another provider" do
@@ -40,14 +41,16 @@ defmodule Newsie.ProviderConfigTest do
     end
 
     test "with config present" do
-      assert [api_key: "bogus", timeout: 100] = ProviderConfig.provider_app_config(Newsie.Providers.FakeProvider)
+      assert [api_key: "bogus", timeout: 100] =
+               ProviderConfig.provider_app_config(Newsie.Providers.FakeProvider)
     end
   end
 
   describe "get_provider_config/1" do
     # app config is set in config.exs for a FakeProvider
     test "env vars override app config" do
-      assert [timeout: 100, api_key: "newkey"] = ProviderConfig.get_provider_config(Newsie.Providers.FakeProvider)
+      assert [timeout: 100, api_key: "newkey"] =
+               ProviderConfig.get_provider_config(Newsie.Providers.FakeProvider)
     end
   end
 end
