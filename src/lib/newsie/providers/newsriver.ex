@@ -96,6 +96,10 @@ defmodule Newsie.Providers.Newsriver do
 
   defp parse_timestamp(nil), do: nil
 
+  defp parse_timestamp(<<str::bytes-size(19)>>) do
+    parse_timestamp("#{str}Z")
+  end
+
   defp parse_timestamp(str) do
     case DateTime.from_iso8601(str) do
       {:ok, dt, _} -> dt
