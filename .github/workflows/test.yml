@@ -40,6 +40,14 @@ jobs:
           otp-version: ${{ matrix.elixir-otp.otp }}
           elixir-version: ${{ matrix.elixir-otp.elixir }}
 
+      - name: dep cache
+        uses: actions/cache@v2
+        with:
+          path: deps
+          key: ${{ runner.os }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/src/mix.lock')) }}
+          restore-keys: |
+            ${{ runner.os }}-mix-
+
       - run: mix deps.get
 
       - run: mix test
