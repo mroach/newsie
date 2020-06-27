@@ -19,7 +19,7 @@ defmodule Newsie.Providers.WebhoseTest do
     test "searching for english news" do
       assert {:ok, articles} = Webhose.search("site_type:news language:english")
 
-      # the ~U sigil and .from_naivewasn't supported until Elixir 1.9
+      # the ~U sigil supported until Elixir 1.9
       {:ok, date} = DateTime.from_naive(~N[2020-06-24T14:23:00.000Z], "Etc/UTC")
 
       assert %Article{
