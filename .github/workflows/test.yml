@@ -19,22 +19,17 @@ jobs:
         elixir-otp:
           # quote version numbers so they don't get parsed as numbers
           # 1.10 would be converted to 1.1
+          # see: https://bobs-list.kobrakai.de
           - elixir: "1.10"
             otp: 22
           - elixir: "1.10"
             otp: 21
           - elixir: "1.9"
-            otp: 22
-          - elixir: "1.9"
-            otp: 21
-          - elixir: "1.9"
             otp: 20
           - elixir: "1.8"
-            otp: 22
-          - elixir: "1.8"
-            otp: 21
-          - elixir: "1.8"
             otp: 20
+          - elixir: "1.7"
+            otp: 19
 
     steps:
       - uses: actions/checkout@v2
