@@ -3,6 +3,9 @@ defmodule Newsie.Languages do
   Basic provider of ISO-639 language codes and names
   """
 
+  @type code2 :: atom()
+  @type name :: String.t()
+
   # Some langauges are tagged with " (macrolanguage)" or the centuries the
   # entry refers to. Simplify the list with custom language name mappings.
   @custom_mappings %{
