@@ -12,6 +12,9 @@ defmodule Newsie.MixProject do
       homepage_url: "https://github.com/mroach/newsie",
       docs: [
         main: "Newsie"
+      ],
+      dialyzer: [
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
       ]
     ]
   end

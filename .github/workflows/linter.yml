@@ -32,8 +32,20 @@ jobs:
           otp-version: ${{ matrix.elixir-otp.otp }}
           elixir-version: ${{ matrix.elixir-otp.elixir }}
 
+      - name: Restore PLTs
+        uses: actions/cache@v2
+        env:
+          cache-name: dialyxir
+        path: priv/plts
+        key: ${{ runner.os }}-${{ env.cache-name }}-erlang-${{ matrix.elixir-otp.otp }}_elixir-${{ matrix.elixir-otp.elixir }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+        restore-keys: |
+          ${{ runner.os }}-${{ env.cache-name }}-erlang-${{ matrix.elixir-otp.otp }}_elixir-${{ matrix.elixir-otp.elixir }}
+          ${{ runner.os }}-${{ env.cache-name }}-
+
       - run: mix deps.get
 
       - run: mix format --check-formatted
 
       - run: mix credo --strict
+
+      - run: mix dialyxir
