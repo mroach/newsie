@@ -15,6 +15,7 @@ if Mix.env() == :test do
   config :newsie, Newsie.Providers.CurrentsApi, api_key: "bogus"
   config :newsie, Newsie.Providers.NewsApi, api_key: "bogus"
   config :newsie, Newsie.Providers.Newsriver, api_key: "bogus"
+  config :newsie, Newsie.Providers.Webhose, api_key: "bogus"
 
   # generate fake config for testing purposes
   config :newsie, Newsie.Providers.FakeProvider, api_key: "bogus", timeout: 100

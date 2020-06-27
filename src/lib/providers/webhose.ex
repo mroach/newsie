@@ -1,24 +1,23 @@
 defmodule Newsie.Providers.Webhose do
-  @api_key_env_var "NEWSIE_WEBHOSE_KEY"
-
   @moduledoc """
   Client for [Webhose]
 
-  Requires an API key to use.
+  ## Configuration
 
-  ### Configuration
+  Requires `:api_key` to use.
 
-  Setting the API key can be done with the environment variable `#{@api_key_env_var}`
-  or with application configuration:
-
-  ```elixir
-  config :newsie, Newsie.Providers.Webhose, api_key: "my_api_key"
+  See `Newsie.ProviderConfig` for documentation on how to configure providers.
   ```
 
   [Webhose]: https://docs.webhose.io/docs
   """
 
   alias Newsie.Article
+
+  @spec config :: keyword
+  def config do
+    Newsie.ProviderConfig.get_provider_config(__MODULE__)
+  end
 
   @doc """
   Search for news articles with a SQL-like query
@@ -57,7 +56,8 @@ defmodule Newsie.Providers.Webhose do
       url: data["url"],
       image_url: thread["main_image"],
       date: parse_timestamp(data["published"]),
-      content: data["text"]
+      content: data["text"],
+      language: data["language"]
     }
   end
 
@@ -73,31 +73,21 @@ defmodule Newsie.Providers.Webhose do
   defp client do
     default_query = [
       {"format", "json"},
-      {"token", api_key()}
+      {"token", Keyword.fetch!(config(), :api_key)}
+    ]
+
+    headers = [
+      {"user-agent", Newsie.user_agent()}
     ]
 
     middleware = [
       Tesla.Middleware.Logger,
       {Tesla.Middleware.BaseUrl, "https://webhose.io"},
       Tesla.Middleware.JSON,
-      {Tesla.Middleware.Query, default_query}
+      {Tesla.Middleware.Query, default_query},
+      {Tesla.Middleware.Headers, headers}
     ]
 
     Tesla.client(middleware)
-  end
-
-  defp module_config do
-    Application.get_env(:newsie, __MODULE__) || []
-  end
-
-  defp api_key_from_env do
-    System.get_env("#{@api_key_env_var}")
-  end
-
-  defp api_key do
-    case Keyword.fetch(module_config(), :api_key) do
-      {:ok, key} -> key
-      :error -> api_key_from_env()
-    end
   end
 end
