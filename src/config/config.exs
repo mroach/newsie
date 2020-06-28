@@ -5,6 +5,13 @@ if Mix.env() == :test do
     level: :debug,
     format: "$date $time [$level] $metadata$message\n"
 
+  config :mix_test_watch,
+    tasks: [
+      "test",
+      "credo",
+      "format --check-formatted"
+    ]
+
   config :tesla, adapter: Tesla.Mock
 
   # Debug logging with Tesla is broken and tries to log the JSON structure
