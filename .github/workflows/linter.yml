@@ -10,6 +10,9 @@ jobs:
   linter:
     runs-on: ubuntu-latest
 
+    env:
+      MIX_ENV: lint
+
     defaults:
       run:
         working-directory: src

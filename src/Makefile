@@ -3,13 +3,17 @@ DOCKER_TAG := newsie_elixir_$(ELIXIR_VER)
 
 .PHONY: test
 test:
-	mix test
+	env MIX_ENV=test mix test
+
+.PHONY: test-watch
+test-watch:
+	env MIX_ENV=test mix test.watch
 
 .PHONY: check
 check:
 	mix format --check-formatted
-	mix credo --strict
-	mix dialyzer --quiet
+	env MIX_ENV=lint mix credo --strict
+	env MIX_ENV=lint mix dialyzer --quiet
 
 .PHONY: docker/build
 docker/build:
@@ -21,7 +25,7 @@ docker/test: docker/build
 
 .PHONY: docs
 docs:
-	mix docs
+	env MIX_ENV=docs mix docs
 
 data/iso-639-3.tab:
 	curl -o $(@D)/$(@F) https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3.tab
