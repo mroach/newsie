@@ -102,6 +102,9 @@ defmodule Newsie.Languages do
       iex> Newsie.Languages.parse_code("en")
       :en
 
+      iex> Newsie.Languages.parse_code("DE")
+      :de
+
       iex> Newsie.Languages.parse_code(:ja)
       :ja
 
@@ -116,6 +119,7 @@ defmodule Newsie.Languages do
   def parse_code(code) when is_binary(code) do
     # any valid language code atom will already be defined by the map creation.
     code
+    |> String.downcase()
     |> String.to_existing_atom()
     |> parse_code()
   rescue
