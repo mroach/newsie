@@ -46,7 +46,7 @@ jobs:
             ${{ runner.os }}-${{ env.cache-name }}-erlang-${{ matrix.elixir-otp.otp }}_elixir-${{ matrix.elixir-otp.elixir }}-
             ${{ runner.os }}-${{ env.cache-name }}-
 
-      - run: mix do deps.get, deps.compile
+      - run: mix do deps.get --only $MIX_ENV, deps.compile
 
       - run: mix format --check-formatted
 
