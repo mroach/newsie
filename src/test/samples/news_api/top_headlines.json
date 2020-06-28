@@ -1,0 +1,45 @@
+{
+  "status": "ok",
+  "totalResults": 38,
+  "articles": [
+    {
+      "source": {
+        "id": null,
+        "name": "New York Times"
+      },
+      "author": null,
+      "title": "Coronavirus Live Updates: Latest News and Analysis - The New York Times",
+      "description": "China says it has largely contained a recent outbreak in Beijing. In a disturbing parallel to H.I.V., the coronavirus can cause a depletion of important immune cells, researchers have found.",
+      "url": "https://www.nytimes.com/2020/06/27/world/coronavirus-updates.html",
+      "urlToImage": "https://www.nytimes.com/newsgraphics/2020/04/09/corona-virus-social-images-by-section/assets/World_promo.jpg?u=1593276329693",
+      "publishedAt": "2020-06-27T16:25:09Z",
+      "content": "The analysis is part of a wide-ranging set of surveys initiated by the C.D.C. to estimate how far the virus has spread. It found, for instance, that in South Florida as of April 10, under 2 percent o… [+1464 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "The Guardian"
+      },
+      "author": "Rowan Moore",
+      "title": "Milton Glaser: graphic designer who created the look of the Sixties - The Guardian",
+      "description": "The man who came up with the classic I love NY logo died on Friday at 91, leaving a rich legacy",
+      "url": "https://www.theguardian.com/artanddesign/2020/jun/27/milton-glaser-why-the-new-york-graphic-designer-was-so-influential",
+      "urlToImage": "https://i.guim.co.uk/img/media/69a7a45dc3a800cb5510cac450c0208f3e11b5b4/1_434_3399_2040/master/3399.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdG8tZGVmYXVsdC5wbmc&enable=upscale&s=d8b2dcf12ba896f0815e840b0a3af7f3",
+      "publishedAt": "2020-06-27T16:06:57Z",
+      "content": "Its a privilege and occasional frustration for graphic designers that they furnish the backgrounds of the lives of millions, without those millions always being aware that they have done so. So it wa… [+4340 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Page Six"
+      },
+      "author": "Sara Dorn",
+      "title": "Lori Loughlin, Mossimo Giannulli pushed out of Bel-Air Country Club - Page Six",
+      "description": "Top members were enraged their recent federal guilty pleas turned the exclusive club into a “laughingstock” and haven for “felons.”",
+      "url": "https://pagesix.com/2020/06/27/bel-air-country-club-pushes-lori-loughlin-mossimo-giannulli-out/",
+      "urlToImage": "https://pagesix.com/wp-content/uploads/sites/3/2020/05/loughlin-giannulli.jpg?quality=90&strip=all&w=1200",
+      "publishedAt": "2020-06-27T15:44:06Z",
+      "content": "Lori Loughlin and Mossimo Giannulli have been pushed out of the exclusive Bel-Air Country Club where top members were enraged their recent federal guilty pleas turned the establishment into a place o… [+1829 chars]"
+    }
+  ]
+}

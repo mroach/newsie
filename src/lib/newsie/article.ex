@@ -13,7 +13,7 @@ defmodule Newsie.Article do
           content: String.t(),
           structured_content: String.t() | nil,
           source_name: String.t() | nil,
-          language: String.t() | nil
+          language: Newsie.Languages.code2() | nil
         }
 
   defstruct [

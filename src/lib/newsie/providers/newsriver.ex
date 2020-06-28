@@ -57,9 +57,9 @@ defmodule Newsie.Providers.Newsriver do
   """
   @spec search_sources(String.t()) :: {:error, any} | {:ok, [map()]}
   def search_sources(text) do
-    query = URI.encode_query(query: text, owner: "any")
+    query = [query: text, owner: "any"]
 
-    case Tesla.get(client(), "/publisher/search?#{query}") do
+    case Tesla.get(client(), "/publisher/search", query: query) do
       {:ok, %{status: 200, body: body}} ->
         {:ok, body}
 
@@ -76,12 +76,12 @@ defmodule Newsie.Providers.Newsriver do
       source_name: Kernel.get_in(data, ["website", "name"]),
       author: nil,
       title: data["title"],
-      description: data["description"],
       url: data["url"],
       image_url: find_image(data["elements"]),
       date: parse_timestamp(data["publishDate"] || data["discoverDate"]),
       content: data["text"],
-      structured_content: data["structuredText"]
+      structured_content: data["structuredText"],
+      language: Newsie.Languages.parse_code(data["language"])
     }
   end
 
@@ -95,6 +95,10 @@ defmodule Newsie.Providers.Newsriver do
   end
 
   defp parse_timestamp(nil), do: nil
+
+  defp parse_timestamp(<<str::bytes-size(19)>>) do
+    parse_timestamp("#{str}Z")
+  end
 
   defp parse_timestamp(str) do
     case DateTime.from_iso8601(str) do

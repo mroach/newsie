@@ -3,6 +3,9 @@ defmodule Newsie.Languages do
   Basic provider of ISO-639 language codes and names
   """
 
+  @type code2 :: atom()
+  @type name :: String.t()
+
   # Some langauges are tagged with " (macrolanguage)" or the centuries the
   # entry refers to. Simplify the list with custom language name mappings.
   @custom_mappings %{
@@ -50,12 +53,11 @@ defmodule Newsie.Languages do
       iex> Newsie.Languages.code_to_name(:xx)
       nil
   """
-  @spec code_to_name(atom() | binary()) :: String.t() | nil
+  @spec code_to_name(code2() | binary()) :: String.t() | nil
   def code_to_name(code) when is_binary(code) do
-    # any valid language code atom will already be defined by the map creation.
-    code |> String.to_existing_atom() |> code_to_name()
-  rescue
-    ArgumentError -> nil
+    code
+    |> parse_code()
+    |> code_to_name()
   end
 
   def code_to_name(code) when is_atom(code) do
@@ -75,8 +77,37 @@ defmodule Newsie.Languages do
       iex> Newsie.Languages.name_to_code("Klingon")
       nil
   """
-  @spec name_to_code(binary) :: atom() | nil
+  @spec name_to_code(binary()) :: code2() | nil
   def name_to_code(name) do
     Map.get(@name_to_code, String.downcase(name))
+  end
+
+  @doc """
+  Validate an ISO-639 language code and convert it to the correct atom.
+
+  Invalid language codes will get `nil`
+
+  ### Examples
+      iex> Newsie.Languages.parse_code("en")
+      :en
+
+      iex> Newsie.Languages.parse_code(:ja)
+      :ja
+
+      iex> Newsie.Languages.parse_code("jp")
+      nil
+  """
+  @spec parse_code(code2() | binary()) :: code2() | nil
+  def parse_code(code) when is_atom(code) do
+    if Map.has_key?(@iso_639_codes, code), do: code, else: nil
+  end
+
+  def parse_code(code) when is_binary(code) do
+    # any valid language code atom will already be defined by the map creation.
+    code
+    |> String.to_existing_atom()
+    |> parse_code()
+  rescue
+    ArgumentError -> nil
   end
 end

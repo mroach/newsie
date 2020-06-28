@@ -19,10 +19,8 @@ defmodule Newsie.Providers.NewsApi do
   end
 
   @spec top_headlines(any) :: {:error, any()} | {:ok, [Article.t()]}
-  def top_headlines(filters) do
-    query = URI.encode_query(filters)
-
-    case Tesla.get(client(), "/top-headlines?#{query}") do
+  def top_headlines(query) do
+    case Tesla.get(client(), "/top-headlines", query: query) do
       {:ok, %{status: 200, body: body}} ->
         articles =
           body
@@ -68,10 +66,8 @@ defmodule Newsie.Providers.NewsApi do
   ]}
   """
   @spec list_sources :: {:error, any} | {:ok, any}
-  def list_sources(filters \\ []) do
-    query = URI.encode_query(filters)
-
-    case Tesla.get(client(), "/sources?#{query}") do
+  def list_sources(query \\ []) do
+    case Tesla.get(client(), "/sources", query: query) do
       {:ok, %{status: 200, body: body}} ->
         {:ok, body["sources"]}
 
