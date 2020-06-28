@@ -28,7 +28,7 @@ defmodule Newsie.Providers.CurrentsApi do
   * `language` (ISO-639-2 code)
   * `keywords`
   * `country` (ISO-3166 code)
-  * `start_date (ISO-8601 timestamp)
+  * `start_date` (ISO-8601 timestamp)
   * `end_date` (ISO-8601 timestamp)
 
   #### Type
