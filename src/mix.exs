@@ -11,7 +11,8 @@ defmodule Newsie.MixProject do
       name: "Newsie",
       homepage_url: "https://github.com/mroach/newsie",
       docs: [
-        main: "Newsie"
+        main: "Newsie",
+        nest_modules_by_prefix: [Newsie.Providers]
       ],
       dialyzer: [
         plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
