@@ -22,15 +22,14 @@ defmodule Newsie.Countries do
 
   ## Current codes and English names
 
-  | ISO-3166 Code | English name |
-  | ------------- | ------------ |
+  ```
   #{
     @iso_3166_codes
     |> Enum.to_list()
     |> List.keysort(0)
-    |> Enum.map(fn {code, name} -> "| `#{code}` | #{name} |" end)
-    |> Enum.join("\n")
+    |> inspect(pretty: true, limit: :infinity)
   }
+  ```
   """
 
   @doc "Get a map of ISO-3166 country codes with English names"

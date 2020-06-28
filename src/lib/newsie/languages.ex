@@ -1,8 +1,4 @@
 defmodule Newsie.Languages do
-  @moduledoc """
-  Basic provider of ISO-639 language codes and names
-  """
-
   @type code2 :: atom()
   @type name :: String.t()
 
@@ -33,6 +29,21 @@ defmodule Newsie.Languages do
                  |> Map.new()
 
   @name_to_code @iso_639_codes |> Map.new(fn {code, name} -> {String.downcase(name), code} end)
+
+  @moduledoc """
+  Basic provider of ISO-639 language codes and names
+
+  ## Current codes and English names
+
+  ```
+  #{
+    @iso_639_codes
+    |> Enum.to_list()
+    |> List.keysort(0)
+    |> inspect(pretty: true, limit: :infinity)
+  }
+  ```
+  """
 
   @doc """
   Get a `Map` of ISO-639 2-letter language codes and their English name.
