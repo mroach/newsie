@@ -13,7 +13,6 @@ defmodule Newsie.Providers.CurrentsApi do
 
   use Newsie.Provider
 
-
   @doc """
   Search for news articles
 
