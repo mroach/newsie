@@ -1,14 +1,19 @@
 defmodule Newsie.MixProject do
   use Mix.Project
 
+  @version "0.1.0"
+
   def project do
     [
       app: :newsie,
-      version: "0.1.0",
+      version: @version,
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      package: package(),
       name: "Newsie",
+      description: "Client library for accessing news APIs",
+      source_url: "https://github.com/mroach/newsie",
       homepage_url: "https://github.com/mroach/newsie",
       docs: [
         main: "Newsie",
@@ -17,6 +22,14 @@ defmodule Newsie.MixProject do
       dialyzer: [
         plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
       ]
+    ]
+  end
+
+  defp package do
+    [
+      maintainers: ["Michael Roach"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/mroach/newsie"}
     ]
   end
 
