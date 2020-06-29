@@ -28,8 +28,24 @@ defmodule Newsie.Config do
   `NEWSIE_<provider_name>_<param_name>`
   """
 
-  @spec get_all_provider_config :: [{atom(), keyword()}]
-  def get_all_provider_config() do
+  @doc """
+  Get configuration for all providers.
+
+  Returns a list of 2-element tuples with the module atom and config `Keyword`.
+
+  ### Example
+
+  ```elixir
+  Newsie.Config.get_all_provider_configs()
+  [
+    {Newsie.Providers.CurrentsApi, [api_key: "currents_api_key"]},
+    {Newsie.Providers.NewsApi, [api_key: "news_api_key"]},
+    {Newsie.Providers.Newsriver, [api_key: "newsriver_key"]}
+  ]
+  ```
+  """
+  @spec get_all_provider_configs :: [{atom(), keyword()}]
+  def get_all_provider_configs do
     for mod <- Newsie.providers(), cfg = get_provider_config(mod), do: {mod, cfg}
   end
 
