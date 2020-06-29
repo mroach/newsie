@@ -18,6 +18,6 @@ ENV MIX_ENV=test
 COPY config ./config
 COPY mix.exs mix.lock ./
 
-RUN mix do deps.get, deps.compile
+RUN mix do deps.get --only $MIX_ENV, deps.compile
 
 VOLUME /opt/code
