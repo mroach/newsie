@@ -6,17 +6,12 @@ defmodule Newsie.Providers.NewsApi do
 
   Requires `:api_key` to use.
 
-  See `Newsie.ProviderConfig` for documentation on how to configure providers.
+  See `Newsie.Config` for documentation on how to configure providers.
 
   [News API]: https://newsapi.org/
   """
 
-  alias Newsie.Article
-
-  @spec config :: keyword
-  def config do
-    Newsie.ProviderConfig.get_provider_config(__MODULE__)
-  end
+  use Newsie.Provider
 
   @spec top_headlines(any) :: {:error, any()} | {:ok, [Article.t()]}
   def top_headlines(query) do

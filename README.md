@@ -36,7 +36,7 @@ Configuration
 -------------
 
 News APIs require authentication, usually with a simple API key/token.
-Check the documentation for each provider and the configuration provider `Newsie.ProviderConfig`.
+Check the documentation for each provider and the configuration provider `Newsie.Config`.
 
 Configuration can be set with Elixir application config or with environment variables.
 
