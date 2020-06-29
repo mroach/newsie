@@ -27,8 +27,8 @@ docker/test: docker/build
 docs:
 	env MIX_ENV=docs mix docs
 
-data/iso-639-3.tab:
+priv/data/iso-639-3.tab:
 	curl -o $(@D)/$(@F) https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3.tab
 
-data/iso-3166.tab:
+priv/data/iso-3166.tab:
 	curl -o $(@D)/$(@F) https://data.iana.org/time-zones/tzdb/iso3166.tab

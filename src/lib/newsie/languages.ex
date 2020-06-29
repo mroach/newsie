@@ -14,21 +14,25 @@ defmodule Newsie.Languages do
     el: "Greek"
   }
 
-  @iso_639_codes for(
-                   line <- File.stream!("data/iso-639-3.tab"),
-                   Stream.drop(line, 1),
-                   row = String.split(line, "\t"),
-                   code = Enum.at(row, 3),
-                   String.length(code) == 2,
-                   code = String.to_atom(code),
-                   Enum.at(row, 5) == "L",
-                   name = Enum.at(row, 6),
-                   name = Map.get(@custom_mappings, code, name),
-                   do: {code, name}
-                 )
-                 |> Map.new()
+  @iso_codes Map.new(
+               for(
+                 line <- File.stream!("priv/data/iso-639-3.tab"),
+                 Stream.drop(line, 1),
+                 row = String.split(line, "\t"),
+                 code = Enum.at(row, 3),
+                 String.length(code) == 2,
+                 code = String.to_atom(code),
+                 Enum.at(row, 5) == "L",
+                 name = Enum.at(row, 6),
+                 name = Map.get(@custom_mappings, code, name),
+                 do: {code, name}
+               )
+             )
 
-  @name_to_code @iso_639_codes |> Map.new(fn {code, name} -> {String.downcase(name), code} end)
+  @name_to_code Map.new(
+                  @iso_codes,
+                  fn {code, name} -> {String.downcase(name), code} end
+                )
 
   @moduledoc """
   Basic provider of ISO-639 language codes and names
@@ -37,7 +41,7 @@ defmodule Newsie.Languages do
 
   ```
   #{
-    @iso_639_codes
+    @iso_codes
     |> Enum.to_list()
     |> List.keysort(0)
     |> inspect(pretty: true, limit: :infinity)
@@ -49,7 +53,7 @@ defmodule Newsie.Languages do
   Get a `Map` of ISO-639 2-letter language codes and their English name.
   """
   @spec iso_639() :: map()
-  def iso_639, do: @iso_639_codes
+  def iso_639, do: @iso_codes
 
   @doc """
   Get the English name of a language based on its 2-letter language code
@@ -72,7 +76,7 @@ defmodule Newsie.Languages do
   end
 
   def code_to_name(code) when is_atom(code) do
-    Map.get(@iso_639_codes, code)
+    Map.get(@iso_codes, code)
   end
 
   @doc """
@@ -113,7 +117,7 @@ defmodule Newsie.Languages do
   """
   @spec parse_code(code2() | binary()) :: code2() | nil
   def parse_code(code) when is_atom(code) do
-    if Map.has_key?(@iso_639_codes, code), do: code, else: nil
+    if Map.has_key?(@iso_codes, code), do: code, else: nil
   end
 
   def parse_code(code) when is_binary(code) do

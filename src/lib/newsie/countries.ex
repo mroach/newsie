@@ -2,20 +2,24 @@ defmodule Newsie.Countries do
   @type code2 :: atom()
   @type name :: String.t()
 
-  @iso_3166_codes for(
-                    line <- File.stream!("data/iso-3166.tab"),
-                    line = String.trim(line),
-                    String.length(line) > 0,
-                    String.first(line) != "#",
-                    row = String.split(line, "\t"),
-                    code = Enum.at(row, 0),
-                    code = code |> String.downcase() |> String.to_atom(),
-                    name = Enum.at(row, 1),
-                    do: {code, name}
-                  )
-                  |> Map.new()
+  @iso_codes Map.new(
+               for(
+                 line <- File.stream!("priv/data/iso-3166.tab"),
+                 line = String.trim(line),
+                 String.length(line) > 0,
+                 String.first(line) != "#",
+                 row = String.split(line, "\t"),
+                 code = Enum.at(row, 0),
+                 code = code |> String.downcase() |> String.to_atom(),
+                 name = Enum.at(row, 1),
+                 do: {code, name}
+               )
+             )
 
-  @name_to_code @iso_3166_codes |> Map.new(fn {code, name} -> {String.downcase(name), code} end)
+  @name_to_code Map.new(
+                  @iso_codes,
+                  fn {code, name} -> {String.downcase(name), code} end
+                )
 
   @moduledoc """
   Helper for ISO-3166 country codes
@@ -24,7 +28,7 @@ defmodule Newsie.Countries do
 
   ```
   #{
-    @iso_3166_codes
+    @iso_codes
     |> Enum.to_list()
     |> List.keysort(0)
     |> inspect(pretty: true, limit: :infinity)
@@ -34,7 +38,7 @@ defmodule Newsie.Countries do
 
   @doc "Get a map of ISO-3166 country codes with English names"
   @spec iso_3166 :: %{code2() => name()}
-  def iso_3166, do: @iso_3166_codes
+  def iso_3166, do: @iso_codes
 
   @doc """
   Convert an ISO-3166 country code to its English name
@@ -51,7 +55,7 @@ defmodule Newsie.Countries do
   end
 
   def code_to_name(code) when is_atom(code) do
-    Map.get(@iso_3166_codes, code)
+    Map.get(@iso_codes, code)
   end
 
   @doc """
@@ -87,7 +91,7 @@ defmodule Newsie.Countries do
   """
   @spec parse_code(code2() | binary()) :: code2() | nil
   def parse_code(code) when is_atom(code) do
-    if Map.has_key?(@iso_3166_codes, code), do: code, else: nil
+    if Map.has_key?(@iso_codes, code), do: code, else: nil
   end
 
   def parse_code(code) when is_binary(code) do
