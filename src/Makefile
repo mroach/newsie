@@ -23,7 +23,7 @@ docker/test: docker/build
 	docker run --rm -v $(PWD):/opt/code $(DOCKER_TAG) mix test
 
 docs:
-	env MIX_ENV=docs mix docs
+	mix docs
 
 clean:
 	rm priv/data/iso-639-3.tab

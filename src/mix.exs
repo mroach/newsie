@@ -53,7 +53,7 @@ defmodule Newsie.MixProject do
       {:dialyxir, "~> 1.0", only: :lint, runtime: false},
 
       # docs-only
-      {:ex_doc, "~> 0.22", only: :docs, runtime: false},
+      {:ex_doc, "~> 0.22", only: :dev, runtime: false},
 
       # test-only
       {:mix_test_watch, "~> 1.0", only: :test, runtime: false}
