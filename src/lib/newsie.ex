@@ -12,8 +12,12 @@ defmodule Newsie do
       iex> Newsie.user_agent()
       "Newsie/#{@version}"
   """
-  @spec user_agent() :: String.t()
+  @spec user_agent() :: binary()
   def user_agent do
-    "Newsie/#{@version}"
+    "Newsie/#{version()}"
   end
+
+  @doc "Get the current version of this library."
+  @spec version() :: binary()
+  def version, do: @version
 end
