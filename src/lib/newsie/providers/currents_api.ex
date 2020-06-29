@@ -6,17 +6,13 @@ defmodule Newsie.Providers.CurrentsApi do
 
   Requires `:api_key` to use.
 
-  See `Newsie.ProviderConfig` for documentation on how to configure providers.
+  See `Newsie.Config` for documentation on how to configure providers.
 
   [Currents API]: https://www.currentsapi.services
   """
 
-  alias Newsie.Article
+  use Newsie.Provider
 
-  @spec config :: keyword
-  def config do
-    Newsie.ProviderConfig.get_provider_config(__MODULE__)
-  end
 
   @doc """
   Search for news articles

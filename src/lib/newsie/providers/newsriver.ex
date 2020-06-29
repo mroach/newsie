@@ -6,17 +6,12 @@ defmodule Newsie.Providers.Newsriver do
 
   Requires `:api_key` to use.
 
-  See `Newsie.ProviderConfig` for documentation on how to configure providers.
+  See `Newsie.Config` for documentation on how to configure providers.
 
   [Newsriver]: https://newsriver.io/
   """
 
-  alias Newsie.Article
-
-  @spec config :: keyword
-  def config do
-    Newsie.ProviderConfig.get_provider_config(__MODULE__)
-  end
+  use Newsie.Provider
 
   @doc """
   Search for news articles with a SQL-like query

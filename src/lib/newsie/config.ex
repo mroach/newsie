@@ -1,4 +1,4 @@
-defmodule Newsie.ProviderConfig do
+defmodule Newsie.Config do
   @env_prefix "NEWSIE_"
 
   @moduledoc """
@@ -28,6 +28,11 @@ defmodule Newsie.ProviderConfig do
   `NEWSIE_<provider_name>_<param_name>`
   """
 
+  @spec get_all_provider_config :: [{atom(), keyword()}]
+  def get_all_provider_config() do
+    for mod <- Newsie.providers(), cfg = get_provider_config(mod), do: {mod, cfg}
+  end
+
   @spec get_provider_config(atom) :: keyword
   def get_provider_config(provider) do
     app_config = provider_app_config(provider)
@@ -48,7 +53,7 @@ defmodule Newsie.ProviderConfig do
   Fetching the config for the provider:
 
   ```
-  Newsie.ProviderConfig.provider_app_config(Newsie.Providers.DocProvider)
+  Newsie.Config.provider_app_config(Newsie.Providers.DocProvider)
   [api_key: "mykey"]
   ```
   """
@@ -64,7 +69,7 @@ defmodule Newsie.ProviderConfig do
 
   ### Example
       iex> System.put_env("NEWSIE_DOC_PROVIDER_API_KEY", "mykey")
-      ...> Newsie.ProviderConfig.provider_env_vars("DocProvider")
+      ...> Newsie.Config.provider_env_vars("DocProvider")
       [api_key: "mykey"]
   """
   @spec provider_env_vars(atom() | binary()) :: keyword()

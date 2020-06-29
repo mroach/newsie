@@ -20,4 +20,14 @@ defmodule Newsie do
   @doc "Get the current version of this library."
   @spec version() :: binary()
   def version, do: @version
+
+  @doc "Get a list of avaialble provider modules"
+  @spec providers() :: [atom()]
+  def providers do
+    [
+      Newsie.Providers.CurrentsApi,
+      Newsie.Providers.NewsApi,
+      Newsie.Providers.Newsriver
+    ]
+  end
 end
