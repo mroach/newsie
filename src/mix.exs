@@ -15,10 +15,7 @@ defmodule Newsie.MixProject do
       description: "Client library for accessing news APIs",
       source_url: "https://github.com/mroach/newsie",
       homepage_url: "https://github.com/mroach/newsie",
-      docs: [
-        main: "Newsie",
-        nest_modules_by_prefix: [Newsie.Providers]
-      ],
+      docs: docs(),
       dialyzer: [
         plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
       ]
@@ -30,6 +27,17 @@ defmodule Newsie.MixProject do
       maintainers: ["Michael Roach"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/mroach/newsie"}
+    ]
+  end
+
+  defp docs do
+    [
+      main: "About",
+      nest_modules_by_prefix: [Newsie.Providers],
+      extras: [
+        "../README.md": [filename: "About", title: "About Newsie"],
+        "DEVELOPMENT.md": []
+      ]
     ]
   end
 
