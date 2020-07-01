@@ -126,7 +126,8 @@ defmodule Newsie.Providers.Newsriver do
       date: parse_timestamp(data["publishDate"] || data["discoverDate"]),
       content: data["text"],
       structured_content: data["structuredText"],
-      language: Newsie.Languages.parse_code(data["language"])
+      language: Newsie.Languages.parse_code(data["language"]),
+      country: Newsie.Countries.parse_code(Kernel.get_in(data, ["website", "countryCode"]))
     }
   end
 
