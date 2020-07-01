@@ -13,6 +13,15 @@ defmodule Newsie.Providers.NewsApi do
 
   use Newsie.Provider
 
+  @impl true
+  def query(%Query{} = query) do
+    query
+    |> Query.criteria()
+    |> Map.take([:country])
+    |> Map.to_list()
+    |> top_headlines()
+  end
+
   @spec top_headlines(any) :: {:error, any()} | {:ok, [Article.t()]}
   def top_headlines(query) do
     case Tesla.get(client(), "/top-headlines", query: query) do

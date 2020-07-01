@@ -13,6 +13,26 @@ defmodule Newsie.Providers.CurrentsApi do
 
   use Newsie.Provider
 
+  @impl true
+  def query(%Query{} = query) do
+    query
+    |> render_query()
+    |> search()
+  end
+
+  @spec render_query(Query.t()) :: keyword()
+  def render_query(%Query{} = query) do
+    query
+    |> Query.criteria()
+    |> Map.take([:language, :country, :start_date, :end_date])
+    |> Enum.map(fn
+      {:country, value} -> {:country, value |> to_string() |> String.upcase()}
+      {:start_date, value} -> {:start_date, DateTime.to_iso8601(value)}
+      {:end_date, value} -> {:end_date, DateTime.to_iso8601(value)}
+      {key, value} -> {key, value}
+    end)
+  end
+
   @doc """
   Search for news articles
 

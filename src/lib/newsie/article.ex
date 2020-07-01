@@ -13,7 +13,8 @@ defmodule Newsie.Article do
           content: String.t(),
           structured_content: String.t() | nil,
           source_name: String.t() | nil,
-          language: Newsie.Languages.code2() | nil
+          language: Newsie.Languages.code2() | nil,
+          country: Newsie.Countries.code2() | nil
         }
 
   defstruct [
@@ -26,6 +27,7 @@ defmodule Newsie.Article do
     :content,
     :structured_content,
     :source_name,
-    :language
+    :language,
+    :country
   ]
 end
