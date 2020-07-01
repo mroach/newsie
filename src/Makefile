@@ -19,6 +19,9 @@ check:
 docker/build:
 	docker build --tag $(DOCKER_TAG) --build-arg ELIXIR_VER=$(ELIXIR_VER) .
 
+docker/iex: docker/build
+	docker run --rm -it -v $(PWD):/opt/code $(DOCKER_TAG) iex -S mix
+
 docker/test: docker/build
 	docker run --rm -v $(PWD):/opt/code $(DOCKER_TAG) mix test
 
