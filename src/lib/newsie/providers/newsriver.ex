@@ -13,6 +13,56 @@ defmodule Newsie.Providers.Newsriver do
 
   use Newsie.Provider
 
+  defp format_time_filter(nil), do: "*"
+
+  defp format_time_filter(%Date{} = date) do
+    Date.to_string(date)
+  end
+
+  defp format_time_filter(%DateTime{} = datetime) do
+    datetime
+    |> DateTime.to_date()
+    |> format_time_filter()
+  end
+
+  defp query_time_filter(nil, nil), do: nil
+
+  defp query_time_filter(start_date, end_date) do
+    "discoverDate:[#{format_time_filter(start_date)} TO #{format_time_filter(end_date)}]"
+  end
+
+  def render_query(%Query{} = query) do
+    extra_filters = [
+      query_time_filter(query.start_date, query.end_date)
+    ]
+
+    query
+    |> Query.criteria()
+    |> Enum.map(fn
+      {:country, value} ->
+        code = value |> to_string() |> String.upcase()
+        ~s[website.countryCode:"#{code}"]
+
+      {:language, value} ->
+        "language:#{value}"
+
+      {_, _} ->
+        nil
+    end)
+    |> Enum.reject(&is_nil/1)
+    |> Enum.concat([extra_filters])
+    |> Enum.join(" AND ")
+  end
+
+  @impl true
+  def query(%Query{} = query) do
+    options = [limit: Map.get(query, :limit, 10)]
+
+    query
+    |> render_query()
+    |> search(options)
+  end
+
   @doc """
   Search for news articles with a SQL-like query
 
