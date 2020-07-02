@@ -56,15 +56,13 @@ defmodule Newsie.MixProject do
       {:tesla, "~> 1.3.0"},
       {:jason, "~> 1.0"},
 
-      # linter-only
-      {:credo, "~> 1.4", only: :lint, runtime: false},
-      {:dialyxir, "~> 1.0", only: :lint, runtime: false},
-
-      # docs-only
+      # dev only
       {:ex_doc, "~> 0.22", only: :dev, runtime: false},
 
-      # test-only
-      {:mix_test_watch, "~> 1.0", only: :test, runtime: false}
+      # test only
+      {:mix_test_watch, "~> 1.0", only: :test, runtime: false},
+      {:credo, "~> 1.4", only: :test, runtime: false},
+      {:dialyxir, "~> 1.0", only: :test, runtime: false}
     ]
   end
 end

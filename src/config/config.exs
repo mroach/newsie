@@ -6,7 +6,7 @@ if Mix.env() == :test do
     format: "$date $time [$level] $metadata$message\n"
 
   config :mix_test_watch,
-    tasks: ["test", "format --check-formatted"]
+    tasks: ["test", "credo --strict", "format --check-formatted"]
 
   config :tesla, adapter: Tesla.Mock
 
