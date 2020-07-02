@@ -13,8 +13,8 @@ test-watch:
 
 check:
 	mix format --check-formatted
-	mix credo --strict
-	mix dialyzer --quiet
+	env MIX_ENV=test mix credo --strict
+	env MIX_ENV=test mix dialyzer --quiet
 
 docker/build:
 	docker build --tag $(DOCKER_TAG) --build-arg ELIXIR_VER=$(ELIXIR_VER) .
