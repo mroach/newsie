@@ -6,15 +6,15 @@ DOCKER_TAG := newsie_elixir_$(ELIXIR_VER)
 all: priv/data/iso-639-3.tab priv/data/iso-3166.tab test check
 
 test:
-	env MIX_ENV=test mix test
+	mix test
 
 test-watch:
 	env MIX_ENV=test mix test.watch
 
 check:
 	mix format --check-formatted
-	env MIX_ENV=lint mix credo --strict
-	env MIX_ENV=lint mix dialyzer --quiet
+	env MIX_ENV=test mix credo --strict
+	env MIX_ENV=test mix dialyzer --quiet
 
 docker/build:
 	docker build --tag $(DOCKER_TAG) --build-arg ELIXIR_VER=$(ELIXIR_VER) .
