@@ -2,7 +2,7 @@ ARG elixir_ver=1.10
 
 FROM elixir:${elixir_ver}-slim
 
-RUN mix local.hex --force \
+RUN mix local.hex --force && \
     mix local.rebar --force
 
 # build inside the image and not on the mounted volume to prevent
