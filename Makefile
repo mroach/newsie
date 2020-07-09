@@ -17,7 +17,7 @@ check:
 	env MIX_ENV=test mix dialyzer --quiet
 
 docker/build:
-	docker build --tag $(DOCKER_TAG) --build-arg ELIXIR_VER=$(ELIXIR_VER) .
+	docker build --tag $(DOCKER_TAG) --build-arg elixir_ver=$(ELIXIR_VER) .
 
 docker/test: docker/build
 	docker run --rm -v $(PWD):/opt/code $(DOCKER_TAG) mix test
