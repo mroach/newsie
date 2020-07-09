@@ -13,10 +13,6 @@ jobs:
     env:
       MIX_ENV: test
 
-    defaults:
-      run:
-        working-directory: src
-
     strategy:
       matrix:
         elixir-otp:
@@ -40,8 +36,8 @@ jobs:
         env:
           cache-name: dialyxir
         with:
-          path: src/priv/plts
-          key: ${{ runner.os }}-${{ env.cache-name }}-erlang-${{ matrix.elixir-otp.otp }}_elixir-${{ matrix.elixir-otp.elixir }}-${{ hashFiles(format('{0}{1}', github.workspace, '/src/mix.lock')) }}
+          path: priv/plts
+          key: ${{ runner.os }}-${{ env.cache-name }}-erlang-${{ matrix.elixir-otp.otp }}_elixir-${{ matrix.elixir-otp.elixir }}-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-erlang-${{ matrix.elixir-otp.otp }}_elixir-${{ matrix.elixir-otp.elixir }}-
             ${{ runner.os }}-${{ env.cache-name }}-
