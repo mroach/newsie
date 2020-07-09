@@ -33,6 +33,7 @@ defmodule Newsie.MixProject do
   defp docs do
     [
       main: "About",
+      logo: "priv/logo.png",
       nest_modules_by_prefix: [Newsie.Providers],
       extras: [
         "README.md": [filename: "About", title: "About Newsie"],
