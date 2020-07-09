@@ -1,6 +1,6 @@
-ARG ELIXIR_VER=1.10
+ARG elixir_ver=1.10
 
-FROM elixir:${ELIXIR_VER}-slim
+FROM elixir:${elixir_ver}-slim
 
 RUN mix local.hex --force \
     mix local.rebar --force
