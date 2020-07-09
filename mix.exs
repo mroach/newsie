@@ -35,7 +35,7 @@ defmodule Newsie.MixProject do
       main: "About",
       nest_modules_by_prefix: [Newsie.Providers],
       extras: [
-        "../README.md": [filename: "About", title: "About Newsie"],
+        "README.md": [filename: "About", title: "About Newsie"],
         "DEVELOPMENT.md": []
       ]
     ]
