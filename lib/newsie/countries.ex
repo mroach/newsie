@@ -2,9 +2,7 @@ defmodule Newsie.Countries do
   @type code2 :: atom()
   @type name :: String.t()
 
-  @iso_codes Map.new(
-               for(
-                 line <- File.stream!("priv/data/iso-3166.tab"),
+  @iso_codes for line <- File.stream!("priv/data/iso-3166.tab"),
                  line = String.trim(line),
                  String.length(line) > 0,
                  String.first(line) != "#",
@@ -12,14 +10,12 @@ defmodule Newsie.Countries do
                  code = Enum.at(row, 0),
                  code = code |> String.downcase() |> String.to_atom(),
                  name = Enum.at(row, 1),
-                 do: {code, name}
-               )
-             )
+                 do: {code, name},
+                 into: %{}
 
-  @name_to_code Map.new(
-                  @iso_codes,
-                  fn {code, name} -> {String.downcase(name), code} end
-                )
+  @name_to_code for {code, name} <- @iso_codes,
+                    do: {String.downcase(name), code},
+                    into: %{}
 
   @moduledoc """
   Helper for ISO-3166 country codes

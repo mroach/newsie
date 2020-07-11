@@ -14,10 +14,7 @@ defmodule Newsie.Languages do
     el: "Greek"
   }
 
-  @iso_codes Map.new(
-               for(
-                 line <- File.stream!("priv/data/iso-639-3.tab"),
-                 Stream.drop(line, 1),
+  @iso_codes for line <- File.stream!("priv/data/iso-639-3.tab"),
                  row = String.split(line, "\t"),
                  code = Enum.at(row, 3),
                  String.length(code) == 2,
@@ -25,14 +22,12 @@ defmodule Newsie.Languages do
                  Enum.at(row, 5) == "L",
                  name = Enum.at(row, 6),
                  name = Map.get(@custom_mappings, code, name),
+                 into: %{},
                  do: {code, name}
-               )
-             )
 
-  @name_to_code Map.new(
-                  @iso_codes,
-                  fn {code, name} -> {String.downcase(name), code} end
-                )
+  @name_to_code for {code, name} <- @iso_codes,
+                    do: {String.downcase(name), code},
+                    into: %{}
 
   @moduledoc """
   Basic provider of ISO-639 language codes and names
