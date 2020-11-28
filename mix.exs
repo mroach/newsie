@@ -54,7 +54,7 @@ defmodule Newsie.MixProject do
   # We do not want to foist development dependencies upon users of the library.
   defp deps do
     [
-      {:tesla, "~> 1.3.0"},
+      {:tesla, "~> 1.4.0"},
       {:jason, "~> 1.0"},
 
       # dev only
