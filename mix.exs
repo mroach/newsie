@@ -58,7 +58,7 @@ defmodule Newsie.MixProject do
       {:jason, "~> 1.0"},
 
       # dev only
-      {:ex_doc, "~> 0.22", only: :dev, runtime: false},
+      {:ex_doc, "~> 0.28", only: :dev, runtime: false},
 
       # test only
       {:mix_test_watch, "~> 1.0", only: :test, runtime: false},
